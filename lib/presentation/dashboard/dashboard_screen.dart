@@ -28,11 +28,9 @@ class DashboardScreen extends GetView<DashboardController> {
       ),
       body: Obx(() {
         if (controller.isLoading.value) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
-        
+
         return RefreshIndicator(
           onRefresh: controller.refreshData,
           child: SingleChildScrollView(
@@ -43,24 +41,24 @@ class DashboardScreen extends GetView<DashboardController> {
               children: [
                 // Welcome Section
                 _buildWelcomeSection(),
-                
+
                 const SizedBox(height: 24),
-                
+
                 // Statistics Cards
                 _buildStatisticsSection(),
-                
+
                 const SizedBox(height: 24),
-                
+
                 // Quick Actions
                 QuickActions(controller: controller),
-                
+
                 const SizedBox(height: 24),
-                
+
                 // Recent Invoices
                 RecentInvoices(controller: controller),
-                
+
                 const SizedBox(height: 24),
-                
+
                 // Status Overview
                 _buildStatusOverview(),
               ],
@@ -105,24 +103,23 @@ class DashboardScreen extends GetView<DashboardController> {
           const SizedBox(height: 8),
           const Text(
             'Kelola invoice Anda dengan mudah',
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.white70,
-            ),
+            style: TextStyle(fontSize: 16, color: Colors.white70),
           ),
           const SizedBox(height: 16),
           Row(
             children: [
               const Icon(Icons.trending_up, color: Colors.white, size: 20),
               const SizedBox(width: 8),
-              Obx(() => Text(
-                'Total Revenue: ${controller.totalRevenueFormatted}',
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                  color: Colors.white,
+              Obx(
+                () => Text(
+                  'Total Revenue: ${controller.totalRevenueFormatted}',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
                 ),
-              )),
+              ),
             ],
           ),
         ],
@@ -146,21 +143,25 @@ class DashboardScreen extends GetView<DashboardController> {
         Row(
           children: [
             Expanded(
-              child: Obx(() => StatsCard(
-                title: 'Total Invoice',
-                value: controller.totalInvoicesText,
-                icon: Icons.receipt_long,
-                color: Colors.blue,
-              )),
+              child: Obx(
+                () => StatsCard(
+                  title: 'Total Invoice',
+                  value: controller.totalInvoicesText,
+                  icon: Icons.receipt_long,
+                  color: Colors.blue,
+                ),
+              ),
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: Obx(() => StatsCard(
-                title: 'Invoice Lunas',
-                value: controller.paidInvoicesText,
-                icon: Icons.check_circle,
-                color: Colors.green,
-              )),
+              child: Obx(
+                () => StatsCard(
+                  title: 'Invoice Lunas',
+                  value: controller.paidInvoicesText,
+                  icon: Icons.check_circle,
+                  color: Colors.green,
+                ),
+              ),
             ),
           ],
         ),
@@ -168,21 +169,25 @@ class DashboardScreen extends GetView<DashboardController> {
         Row(
           children: [
             Expanded(
-              child: Obx(() => StatsCard(
-                title: 'Pending',
-                value: controller.pendingInvoicesText,
-                icon: Icons.pending,
-                color: Colors.orange,
-              )),
+              child: Obx(
+                () => StatsCard(
+                  title: 'Pending',
+                  value: controller.pendingInvoicesText,
+                  icon: Icons.pending,
+                  color: Colors.orange,
+                ),
+              ),
             ),
             const SizedBox(width: 16),
             Expanded(
-              child: Obx(() => StatsCard(
-                title: 'Jatuh Tempo',
-                value: controller.overdueInvoicesText,
-                icon: Icons.warning,
-                color: Colors.red,
-              )),
+              child: Obx(
+                () => StatsCard(
+                  title: 'Jatuh Tempo',
+                  value: controller.overdueInvoicesText,
+                  icon: Icons.warning,
+                  color: Colors.red,
+                ),
+              ),
             ),
           ],
         ),
@@ -220,42 +225,43 @@ class DashboardScreen extends GetView<DashboardController> {
           Obx(() {
             final distribution = controller.statusDistribution;
             return Column(
-              children: distribution.entries.map((entry) {
-                final status = entry.key;
-                final count = entry.value;
-                final color = controller.getStatusColor(status);
-                final statusText = controller.getStatusText(status);
-                
-                return Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Row(
-                    children: [
-                      Container(
-                        width: 12,
-                        height: 12,
-                        decoration: BoxDecoration(
-                          color: color,
-                          shape: BoxShape.circle,
-                        ),
+              children:
+                  distribution.entries.map((entry) {
+                    final status = entry.key;
+                    final count = entry.value;
+                    final color = controller.getStatusColor(status);
+                    final statusText = controller.getStatusText(status);
+
+                    return Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Row(
+                        children: [
+                          Container(
+                            width: 12,
+                            height: 12,
+                            decoration: BoxDecoration(
+                              color: color,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: Text(
+                              statusText,
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ),
+                          Text(
+                            count.toString(),
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Text(
-                          statusText,
-                          style: const TextStyle(fontSize: 14),
-                        ),
-                      ),
-                      Text(
-                        count.toString(),
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
+                    );
+                  }).toList(),
             );
           }),
         ],

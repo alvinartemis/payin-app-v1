@@ -5,6 +5,7 @@ import 'create_invoice_controller.dart';
 class CreateInvoiceScreen extends GetView<CreateInvoiceController> {
   @override
   Widget build(BuildContext context) {
+    print('✅ CreateInvoiceScreen loaded (YANG BENAR)');
     return Scaffold(
       backgroundColor: Colors.grey[50],
       appBar: AppBar(
@@ -12,49 +13,55 @@ class CreateInvoiceScreen extends GetView<CreateInvoiceController> {
         backgroundColor: Colors.blue,
         foregroundColor: Colors.white,
         actions: [
-          Obx(() => controller.isLoading.value
-              ? const Padding(
-                  padding: EdgeInsets.all(16),
-                  child: SizedBox(
-                    width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 2,
-                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    ),
-                  ),
-                )
-              : PopupMenuButton<String>(
-                  onSelected: (value) {
-                    if (value == 'save_draft') {
-                      controller.saveInvoice(isDraft: true);
-                    } else if (value == 'save_send') {
-                      controller.saveInvoice(isDraft: false);
-                    }
-                  },
-                  itemBuilder: (context) => [
-                    const PopupMenuItem(
-                      value: 'save_draft',
-                      child: Row(
-                        children: [
-                          Icon(Icons.save, size: 16),
-                          SizedBox(width: 8),
-                          Text('Simpan sebagai Draft'),
-                        ],
+          Obx(
+            () =>
+                controller.isLoading.value
+                    ? const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          strokeWidth: 2,
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.white,
+                          ),
+                        ),
                       ),
+                    )
+                    : PopupMenuButton<String>(
+                      onSelected: (value) {
+                        if (value == 'save_draft') {
+                          controller.saveInvoice(isDraft: true);
+                        } else if (value == 'save_send') {
+                          controller.saveInvoice(isDraft: false);
+                        }
+                      },
+                      itemBuilder:
+                          (context) => [
+                            const PopupMenuItem(
+                              value: 'save_draft',
+                              child: Row(
+                                children: [
+                                  Icon(Icons.save, size: 16),
+                                  SizedBox(width: 8),
+                                  Text('Simpan sebagai Draft'),
+                                ],
+                              ),
+                            ),
+                            const PopupMenuItem(
+                              value: 'save_send',
+                              child: Row(
+                                children: [
+                                  Icon(Icons.send, size: 16),
+                                  SizedBox(width: 8),
+                                  Text('Simpan & Kirim'),
+                                ],
+                              ),
+                            ),
+                          ],
                     ),
-                    const PopupMenuItem(
-                      value: 'save_send',
-                      child: Row(
-                        children: [
-                          Icon(Icons.send, size: 16),
-                          SizedBox(width: 8),
-                          Text('Simpan & Kirim'),
-                        ],
-                      ),
-                    ),
-                  ],
-                )),
+          ),
         ],
       ),
       body: Form(
@@ -66,29 +73,29 @@ class CreateInvoiceScreen extends GetView<CreateInvoiceController> {
             children: [
               // Client Information Section
               _buildClientInfoSection(),
-              
+
               const SizedBox(height: 24),
-              
+
               // Invoice Details Section
               _buildInvoiceDetailsSection(),
-              
+
               const SizedBox(height: 24),
-              
+
               // Items Section
               _buildItemsSection(),
-              
+
               const SizedBox(height: 24),
-              
+
               // Summary Section
               _buildSummarySection(),
-              
+
               const SizedBox(height: 24),
-              
+
               // Notes Section
               _buildNotesSection(),
-              
+
               const SizedBox(height: 32),
-              
+
               // Action Buttons
               _buildActionButtons(),
             ],
@@ -118,10 +125,7 @@ class CreateInvoiceScreen extends GetView<CreateInvoiceController> {
         children: [
           const Text(
             'Informasi Client',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
           TextFormField(
@@ -223,10 +227,7 @@ class CreateInvoiceScreen extends GetView<CreateInvoiceController> {
         children: [
           const Text(
             'Detail Invoice',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
           TextFormField(
@@ -246,7 +247,8 @@ class CreateInvoiceScreen extends GetView<CreateInvoiceController> {
                 lastDate: DateTime.now().add(const Duration(days: 365)),
               );
               if (date != null) {
-                controller.dueDateController.text = '${date.day}/${date.month}/${date.year}';
+                controller.dueDateController.text =
+                    '${date.day}/${date.month}/${date.year}';
               }
             },
             validator: (value) {
@@ -284,10 +286,7 @@ class CreateInvoiceScreen extends GetView<CreateInvoiceController> {
             children: [
               const Text(
                 'Item Invoice',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               ElevatedButton.icon(
                 onPressed: controller.addItem,
@@ -353,10 +352,7 @@ class CreateInvoiceScreen extends GetView<CreateInvoiceController> {
                       const SizedBox(height: 4),
                       Text(
                         '${item.quantity} x Rp ${item.price.toStringAsFixed(0)}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey[600],
-                        ),
+                        style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                       ),
                     ],
                   ),
@@ -378,28 +374,33 @@ class CreateInvoiceScreen extends GetView<CreateInvoiceController> {
                             controller.removeItem(index);
                           }
                         },
-                        itemBuilder: (context) => [
-                          const PopupMenuItem(
-                            value: 'edit',
-                            child: Row(
-                              children: [
-                                Icon(Icons.edit, size: 16),
-                                SizedBox(width: 8),
-                                Text('Edit'),
-                              ],
-                            ),
-                          ),
-                          const PopupMenuItem(
-                            value: 'delete',
-                            child: Row(
-                              children: [
-                                Icon(Icons.delete, size: 16, color: Colors.red),
-                                SizedBox(width: 8),
-                                Text('Hapus'),
-                              ],
-                            ),
-                          ),
-                        ],
+                        itemBuilder:
+                            (context) => [
+                              const PopupMenuItem(
+                                value: 'edit',
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.edit, size: 16),
+                                    SizedBox(width: 8),
+                                    Text('Edit'),
+                                  ],
+                                ),
+                              ),
+                              const PopupMenuItem(
+                                value: 'delete',
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.delete,
+                                      size: 16,
+                                      color: Colors.red,
+                                    ),
+                                    SizedBox(width: 8),
+                                    Text('Hapus'),
+                                  ],
+                                ),
+                              ),
+                            ],
                       ),
                     ],
                   ),
@@ -432,44 +433,49 @@ class CreateInvoiceScreen extends GetView<CreateInvoiceController> {
         children: [
           const Text(
             'Ringkasan',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
-          Obx(() => Column(
-            children: [
-              _buildSummaryRow('Subtotal', 'Rp ${controller.subtotal.value.toStringAsFixed(0)}'),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: controller.discountController,
-                      decoration: const InputDecoration(
-                        labelText: 'Diskon',
-                        border: OutlineInputBorder(),
-                        prefixText: 'Rp ',
+          Obx(
+            () => Column(
+              children: [
+                _buildSummaryRow(
+                  'Subtotal',
+                  'Rp ${controller.subtotal.value.toStringAsFixed(0)}',
+                ),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextFormField(
+                        controller: controller.discountController,
+                        decoration: const InputDecoration(
+                          labelText: 'Diskon',
+                          border: OutlineInputBorder(),
+                          prefixText: 'Rp ',
+                        ),
+                        keyboardType: TextInputType.number,
+                        onChanged: (value) => controller.calculateTotals(),
                       ),
-                      keyboardType: TextInputType.number,
-                      onChanged: (value) => controller.calculateTotals(),
                     ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              _buildSummaryRow('Pajak (${controller.taxRate.value}%)', 'Rp ${controller.tax.value.toStringAsFixed(0)}'),
-              const SizedBox(height: 8),
-              const Divider(thickness: 2),
-              const SizedBox(height: 8),
-              _buildSummaryRow(
-                'TOTAL',
-                'Rp ${controller.total.value.toStringAsFixed(0)}',
-                isTotal: true,
-              ),
-            ],
-          )),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                _buildSummaryRow(
+                  'Pajak (${controller.taxRate.value}%)',
+                  'Rp ${controller.tax.value.toStringAsFixed(0)}',
+                ),
+                const SizedBox(height: 8),
+                const Divider(thickness: 2),
+                const SizedBox(height: 8),
+                _buildSummaryRow(
+                  'TOTAL',
+                  'Rp ${controller.total.value.toStringAsFixed(0)}',
+                  isTotal: true,
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
@@ -518,10 +524,7 @@ class CreateInvoiceScreen extends GetView<CreateInvoiceController> {
         children: [
           const Text(
             'Catatan (Opsional)',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 16),
           TextFormField(

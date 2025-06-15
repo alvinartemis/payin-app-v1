@@ -9,18 +9,18 @@ class AppThemes {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.light,
-      
+
       // Color Scheme
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors.primary,
         brightness: Brightness.light,
       ),
-      
+
       // Primary Colors
       primarySwatch: _createMaterialColor(AppColors.primary),
       primaryColor: AppColors.primary,
       scaffoldBackgroundColor: AppColors.background,
-      
+
       // App Bar Theme
       appBarTheme: AppBarTheme(
         backgroundColor: AppColors.primary,
@@ -38,17 +38,17 @@ class AppThemes {
         ),
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
-      
+
       // Card Theme
-      cardTheme: CardTheme(
-        color: AppColors.surface,
+      cardTheme: CardThemeData(
+        color: const Color(0xFF1F1F1F),
         elevation: AppSizes.elevationLow,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSizes.radiusM),
         ),
         margin: const EdgeInsets.all(AppSizes.paddingS),
       ),
-      
+
       // Elevated Button Theme
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
@@ -68,7 +68,7 @@ class AppThemes {
           ),
         ),
       ),
-      
+
       // Outlined Button Theme
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
@@ -87,7 +87,7 @@ class AppThemes {
           ),
         ),
       ),
-      
+
       // Text Button Theme
       textButtonTheme: TextButtonThemeData(
         style: TextButton.styleFrom(
@@ -102,7 +102,7 @@ class AppThemes {
           ),
         ),
       ),
-      
+
       // Input Decoration Theme
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
@@ -155,13 +155,13 @@ class AppThemes {
           fontSize: AppSizes.fontM,
         ),
       ),
-      
+
       // Icon Theme
       iconTheme: const IconThemeData(
         color: AppColors.textPrimary,
         size: AppSizes.iconL,
       ),
-      
+
       // Text Theme
       textTheme: const TextTheme(
         displayLarge: TextStyle(
@@ -240,14 +240,14 @@ class AppThemes {
           color: AppColors.textHint,
         ),
       ),
-      
+
       // Divider Theme
       dividerTheme: DividerThemeData(
         color: Colors.grey.shade200,
         thickness: AppSizes.dividerThickness,
         space: AppSizes.spaceM,
       ),
-      
+
       // Bottom Navigation Bar Theme
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: AppColors.surface,
@@ -256,7 +256,7 @@ class AppThemes {
         type: BottomNavigationBarType.fixed,
         elevation: AppSizes.elevationMedium,
       ),
-      
+
       // Chip Theme
       chipTheme: ChipThemeData(
         backgroundColor: Colors.grey.shade100,
@@ -273,15 +273,15 @@ class AppThemes {
           borderRadius: BorderRadius.circular(AppSizes.radiusL),
         ),
       ),
-      
+
       // Dialog Theme
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: AppColors.surface,
         elevation: AppSizes.elevationHigh,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(AppSizes.radiusM),
         ),
-        titleTextStyle: const TextStyle(
+        titleTextStyle: TextStyle(
           fontSize: AppSizes.fontXL,
           fontWeight: FontWeight.bold,
           color: AppColors.textPrimary,
@@ -291,7 +291,7 @@ class AppThemes {
           color: AppColors.textSecondary,
         ),
       ),
-      
+
       // Snack Bar Theme
       snackBarTheme: SnackBarThemeData(
         backgroundColor: AppColors.textPrimary,
@@ -313,18 +313,18 @@ class AppThemes {
     return ThemeData(
       useMaterial3: true,
       brightness: Brightness.dark,
-      
+
       // Color Scheme
       colorScheme: ColorScheme.fromSeed(
         seedColor: AppColors.primary,
         brightness: Brightness.dark,
       ),
-      
+
       // Primary Colors
       primarySwatch: _createMaterialColor(AppColors.primary),
       primaryColor: AppColors.primary,
       scaffoldBackgroundColor: const Color(0xFF121212),
-      
+
       // App Bar Theme
       appBarTheme: const AppBarTheme(
         backgroundColor: Color(0xFF1F1F1F),
@@ -336,15 +336,12 @@ class AppThemes {
           fontWeight: FontWeight.w600,
           color: Colors.white,
         ),
-        iconTheme: IconThemeData(
-          color: Colors.white,
-          size: AppSizes.iconL,
-        ),
+        iconTheme: IconThemeData(color: Colors.white, size: AppSizes.iconL),
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
-      
+
       // Card Theme
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: const Color(0xFF1F1F1F),
         elevation: AppSizes.elevationLow,
         shape: RoundedRectangleBorder(
@@ -352,7 +349,7 @@ class AppThemes {
         ),
         margin: const EdgeInsets.all(AppSizes.paddingS),
       ),
-      
+
       // Input Decoration Theme
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
